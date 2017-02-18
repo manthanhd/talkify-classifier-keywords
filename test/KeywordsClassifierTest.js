@@ -5,7 +5,7 @@ const chai = require("chai");
 const expect = chai.expect;
 
 describe('KeywordClassifier', function() {
-    const KeywordClassifier = require("../lib/KeywordClassifier");
+    const KeywordClassifier = require("../lib/KeywordsClassifier");
     describe("<init>", function() {
         it("successfully initialises when passed in object with topic as key and keywords as value", function() {
             let classifier = new KeywordClassifier({

@@ -1,10 +1,10 @@
 /**
  * Created by manthanhd on 19/10/2016.
  */
-var gulp = require('gulp');
-var jslint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
-var shell = require('gulp-shell');
+const gulp = require('gulp');
+const jslint = require('gulp-jshint');
+const stylish = require('jshint-stylish');
+const shell = require('gulp-shell');
 
 gulp.task('lint', function () {
     return gulp.src(['./lib/**.js'])

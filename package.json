@@ -4,10 +4,10 @@
   "description": "Advanced keyword matching classifier for Talkify",
   "main": "index.js",
   "dependencies": {
-    "chai": "^3.5.0",
     "talkify-classifier": "^1.0.2"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.4",
     "gulp-shell": "^0.5.2",
