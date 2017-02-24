@@ -59,3 +59,30 @@ while the following will only receive 50% (0.5) confidence in classification:
 I want to eat something.
 ```
 
+For multiple topics, the classifier will always return classifications in descending order i.e. the classification that the classifier has highest confidence in will be listed towards the top of the array. Consider this:
+
+```javascript
+const myClassifier = new KeywordsClassifier({
+    "eat_food": [
+        "eat", ["apples", "banana", "mango"]
+    ],
+    "like_food": [
+        "like", ["apples", "banana", "mango"]
+    ]
+});
+```
+
+For a given sentence:
+
+```
+I like apples
+```
+
+The classifier will return the following classifications:
+
+```
+[
+    { label: "like_food", value: 1 },
+    { label: "eat_food", value: 0.5 },
+]
+```
