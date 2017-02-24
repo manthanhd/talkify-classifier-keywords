@@ -4,6 +4,7 @@
   "description": "Advanced keyword matching classifier for Talkify",
   "main": "index.js",
   "dependencies": {
+    "async": "^2.1.5",
     "talkify-classifier": "^1.0.2"
   },
   "devDependencies": {
