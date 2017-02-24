@@ -114,5 +114,39 @@ describe('KeywordClassifier', function() {
                 done(err);
             });
         });
+
+        it("gets two classifications with descending order of confidence when two topics match", function() {
+            let classifier = new KeywordClassifier({
+                "eat_fruit": ['eat', ['apples', 'bananas']],
+                "like_fruit": ['like', ['apples', 'broccoli']]
+            });
+
+            return classifier.getClassifications("I like apples", function(err, classifications) {
+                expect(err).to.not.exist;
+                expect(classifications).to.be.a('Array');
+                expect(classifications.length).to.equal(2);
+                expect(classifications[0].label).to.equal('like_fruit');
+                expect(classifications[0].value).to.equal(1);
+                expect(classifications[1].label).to.equal('eat_fruit');
+                expect(classifications[1].value).to.equal(0.5);
+            });
+        });
+
+        it("gets two classifications with equal confidence when two topics match", function() {
+            let classifier = new KeywordClassifier({
+                "eat_fruit": ['eat', ['apples', 'bananas']],
+                "like_fruit": ['like', ['apples', 'broccoli']]
+            });
+
+            return classifier.getClassifications("I like to eat apples", function(err, classifications) {
+                expect(err).to.not.exist;
+                expect(classifications).to.be.a('Array');
+                expect(classifications.length).to.equal(2);
+                expect(classifications[0].label).to.equal('eat_fruit');
+                expect(classifications[0].value).to.equal(1);
+                expect(classifications[1].label).to.equal('like_fruit');
+                expect(classifications[1].value).to.equal(1);
+            });
+        });
     });
 });
