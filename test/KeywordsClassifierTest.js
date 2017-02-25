@@ -56,7 +56,7 @@ describe('KeywordClassifier', function() {
         it("gets classification with 0.5 confidence for 50% match", function(done) {
             let classifier = new KeywordClassifier({
                 "eat": ['eat', 'food']
-            });
+            }, {confidenceThreshold: 0.1});
 
             return classifier.getClassifications("tell me about food", function(err, classifications) {
                 expect(err).to.not.exist;
@@ -102,7 +102,7 @@ describe('KeywordClassifier', function() {
         it("gets classification with 0.5 when one of the mandatory keywords match and none of the optional keywords match", function(done) {
             let classifier = new KeywordClassifier({
                 "eat_fruit": ['eat', ['apples', 'bananas']]
-            });
+            }, {confidenceThreshold: 0.1});
 
             return classifier.getClassifications("I want to eat pears", function(err, classifications) {
                 expect(err).to.not.exist;
@@ -119,7 +119,7 @@ describe('KeywordClassifier', function() {
             let classifier = new KeywordClassifier({
                 "eat_fruit": ['eat', ['apples', 'bananas']],
                 "like_fruit": ['like', ['apples', 'broccoli']]
-            });
+            }, {confidenceThreshold: 0.1});
 
             return classifier.getClassifications("I like apples", function(err, classifications) {
                 expect(err).to.not.exist;
@@ -147,6 +147,29 @@ describe('KeywordClassifier', function() {
                 expect(classifications[1].label).to.equal('like_fruit');
                 expect(classifications[1].value).to.equal(1);
             });
+        });
+
+        it("gets classification from downstream classifiers", function(done) {
+            let parentClassifier = new KeywordClassifier({
+                "topic_apples": [['apples', 'apple']]
+            });
+
+            let childClassifier1 = new KeywordClassifier({
+                "topic_ask_nutrition_info": [['nutrition', 'nutritional'], ['what', 'about', 'tell']]
+            });
+
+            parentClassifier.addDownstreamClassifier('topic_apples', childClassifier1);
+
+            return parentClassifier.getClassifications('tell me about nutritional info in apples', function(err, classifications) {
+                expect(err).to.not.exist;
+                expect(classifications).to.be.a('Array');
+                expect(classifications.length).to.equal(2);
+                expect(classifications[0].label).to.equal('topic_apples');
+                expect(classifications[0].value).to.equal(1);
+                expect(classifications[1].label).to.equal('topic_ask_nutrition_info');
+                expect(classifications[1].value).to.equal(1);
+                done();
+            })
         });
     });
 });
