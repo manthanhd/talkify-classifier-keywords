@@ -92,12 +92,11 @@ The classifier will return the following classifications:
 This classifier supports classification graphs. Consider the following graphical arrangement:
 
 ```
-[questionClassifier]     ======\
-
-                            ====== [lightOffClassifier]
-                            |
-                            ====== [lightOnClassifier]
-[commandClassifier] ======/
+[questionClassifier] ======\\
+                             ====== [lightOffClassifier]
+                             ||
+                             ====== [lightOnClassifier]
+[commandClassifier] =======//
 ```
 
 Here, the `questionClassifier` and `commandClassifier` are the top level classifiers while the `lightOffClassifier` and `lightOnClassifier` are downstream classifiers to those top level classifiers.
