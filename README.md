@@ -86,3 +86,64 @@ The classifier will return the following classifications:
     { label: "eat_food", value: 0.5 },
 ]
 ```
+
+## Classification Graphs
+
+This classifier supports classification graphs. Consider the following graphical arrangement:
+
+```
+[questionClassifier]     ======\
+
+                            ====== [lightOffClassifier]
+                            |
+                            ====== [lightOnClassifier]
+[commandClassifier] ======/
+```
+
+Here, the `questionClassifier` and `commandClassifier` are the top level classifiers while the `lightOffClassifier` and `lightOnClassifier` are downstream classifiers to those top level classifiers.
+
+Here's how the implementation might look like:
+
+```javascript
+const questionClassifier = new KeywordsClassifier({
+    'question': [
+        ["is", "check"], "turned"
+    ]
+});
+
+const commandClassifier = new KeywordsClassifier({
+    'command': [
+        ["do", "please"], "turn"
+    ]
+});
+
+const lightOffClassifier  = new KeywordsClassifier({
+    'light_off': [
+        ["off"], "light"
+    ]
+});
+
+const lightOnClassifier= new KeywordsClassifier({
+    'light_on': [
+        ["on"], "light"
+    ]
+});
+
+questionClassifier.addDownstreamClassifier("question", lightOffClassifier);
+questionClassifier.addDownstreamClassifier("question", lightOnClassifier);
+
+commandClassifier.addDownstreamClassifier("command", lightOffClassifier);
+commandClassifier.addDownstreamClassifier("command", lightOnClassifier);
+```
+
+The above example is divided into two parts. In the first part, we're defining all our classifiers. In the second, we're associating the downstream classifiers like `lightOffClassifier` and `lightOnClassifier` to the top level classifiers like `questionClassifier` and `commandClassifier` using the `addDownstreamClassifier` method. This method takes two parameters, the name of the topic and the classifier object itself. This, in effect "subscribes" the downstream classifier to the topic that you specify. As you see, we're subscribing the downstream classifiers to the topics that the parent classifiers are producing. To keep things simple, in this case, each of the top level classifiers are only producing a single topic.
+
+Once you've got this all setup, you can wire the classification graph to the bot like so:
+
+```javascript
+const bot = new Bot({
+    classifiers: [questionClassifier, commandClassifier]
+});
+```
+
+Even though we've got a total of four classifiers in our classification graph, we're only adding two of them. This is because the other two are already linked to the two that are being added to the bot so in effect, by adding two classifiers, we are adding a total of four.
