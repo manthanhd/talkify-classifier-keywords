@@ -1,0 +1,1 @@
+module.exports.KeywordsClassifier = require("./lib/KeywordsClassifier");
