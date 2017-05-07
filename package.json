@@ -25,7 +25,9 @@
   "keywords": [
     "talkify",
     "keyword",
-    "classifier"
+    "classifier",
+    "chat",
+    "bot"
   ],
   "author": "Manthan Dave <manthanhd@live.com>",
   "license": "MIT"
