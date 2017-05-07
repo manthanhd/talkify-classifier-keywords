@@ -2,7 +2,7 @@
 
 As simple as classification can get, this classifier will allow you to quickly create rules for topic classification based on keywords.
 
-[![npm version](https://badge.fury.io/js/talkify-classifier-keywords.svg)](https://badge.fury.io/js/talkify-classifier-keywords)
+[![npm version](https://badge.fury.io/js/talkify-classifier-keywords.svg)](https://badge.fury.io/js/talkify-classifier-keywords) [![Build Status](https://travis-ci.org/manthanhd/talkify-classifier-keywords.svg?branch=master)](https://travis-ci.org/manthanhd/talkify-classifier-keywords)
 
 ## Usage
 
