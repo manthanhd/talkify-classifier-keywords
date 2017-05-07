@@ -3,6 +3,7 @@ node_js:
 - 'node'
 after_success:
 - npm run coveralls
+- npm run lint
 branches:
   only:
   - master
