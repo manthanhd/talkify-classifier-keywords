@@ -7,9 +7,3 @@ after_success:
 branches:
   only:
   - master
-deploy:
-  on:
-    branch: master
-  provider: npm
-  skip_cleanup: true
-  email: manthanhd@live.com
