@@ -2,6 +2,8 @@
 
 As simple as classification can get, this classifier will allow you to quickly create rules for topic classification based on keywords.
 
+[![npm version](https://badge.fury.io/js/talkify-classifier-keywords.svg)](https://badge.fury.io/js/talkify-classifier-keywords)
+
 ## Usage
 
 ```javascript
